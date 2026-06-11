@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 
+@MainActor
 class PenguinViewModel: ObservableObject {
     @Published var penguinExpression: PenguinExpression = .idle
     @Published var lastTranscribedText = ""

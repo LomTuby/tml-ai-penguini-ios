@@ -188,6 +188,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CVXL3FMRND;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = PenguiniBot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -262,6 +263,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CVXL3FMRND;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = PenguiniBot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -1,6 +1,7 @@
 import Foundation
 import CLiteRTLM
 
+@MainActor // <-- Added @MainActor to ensure state synchronization and Sendability for concurrent contexts
 final class LLMManager: ObservableObject {
     private var engineHandle: OpaquePointer?
     private var conversationHandle: OpaquePointer?
@@ -34,6 +35,10 @@ final class LLMManager: ObservableObject {
         defer { litert_lm_engine_settings_delete(settings) }
 
         litert_lm_engine_settings_set_max_num_tokens(settings, 1024)
+
+        if let cachesURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
+            litert_lm_engine_settings_set_cache_dir(settings, cachesURL.path)
+        }
 
         guard let engine = litert_lm_engine_create(settings) else {
             print("Failed to create LiteRT-LM engine.")
@@ -69,11 +74,11 @@ final class LLMManager: ObservableObject {
         Task {
             do {
                 let text = try await sendMessage(conversationHandle: conversationHandle, prompt: prompt)
-                DispatchQueue.main.async {
-                    self.responseText = text
-                    completion(text)
-                }
+                // Operation is now safely on the MainActor due to class marking and DispatchQueue.main.async
+                self.responseText = text 
+                completion(text)
             } catch {
+                // Operation is now safely on the MainActor
                 DispatchQueue.main.async {
                     completion("Oops, I got a bit confused! \(error.localizedDescription)")
                 }
@@ -95,6 +100,7 @@ final class LLMManager: ObservableObject {
             do {
                 var fullResponse = ""
                 for try await chunk in sendMessageStream(conversationHandle: conversationHandle, prompt: prompt) {
+                    // Mutation of fullResponse is contained within this Task block.
                     fullResponse += chunk
                     DispatchQueue.main.async {
                         partialHandler(fullResponse)
