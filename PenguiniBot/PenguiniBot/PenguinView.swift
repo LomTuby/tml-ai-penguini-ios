@@ -34,7 +34,7 @@ struct PenguinView: View {
                         Text(viewModel.lastTranscribedText)
                             .font(.body)
                             .padding()
-                            .background(Color.white)
+                            .background(Color(.secondarySystemBackground))
                             .cornerRadius(15)
                             .shadow(radius: 2)
                     }
@@ -47,7 +47,7 @@ struct PenguinView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .frame(maxHeight: 150)
-                        .background(Color.white.opacity(0.8))
+                        .background(Color(.secondarySystemBackground).opacity(0.8))
                         .cornerRadius(15)
                         .padding()
                     }
