@@ -24,11 +24,8 @@ class LLMManager: ObservableObject {
 
         let options = LlmInference.Options(modelPath: modelPath)
         options.maxTokens = 1024
-        
-        // Removed unknown properties like 'temperature' and 'randomSeed' to prevent crashes.
-        
+
         do {
-            // Attempting initialization
             llmInference = try LlmInference(options: options)
             DispatchQueue.main.async {
                 self.isModelLoaded = true
@@ -48,15 +45,12 @@ class LLMManager: ObservableObject {
 
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                // This call is correctly marked with 'try' and enclosed in a 'do-catch' block 
-                // to handle potential errors thrown by the LLM inference.
                 let response = try llmInference.generateResponse(inputText: formattedPrompt)
                 DispatchQueue.main.async {
                     self.responseText = response
                     completion(response)
                 }
             } catch {
-                // This error handling block correctly catches and reports any failure from the LLM call.
                 DispatchQueue.main.async {
                     completion("Oops, I got a bit confused! \(error.localizedDescription)")
                 }
@@ -65,39 +59,30 @@ class LLMManager: ObservableObject {
     }
 
     func generateResponseStream(prompt: String, partialHandler: @escaping (String) -> Void, completion: @escaping (String) -> Void) {
-        guard let llmInference = llmInference else { return }
+        guard let llmInference = llmInference else {
+            completion("LLM not loaded.")
+            return
+        }
 
         let formattedPrompt = "<start_of_turn>user\n\(prompt)<end_of_turn>\n<start_of_turn>model\n"
         var fullResponse = ""
 
-        do {
-            // Added 'try' here because generateResponseAsync can throw initialization/runtime configuration errors
-            try llmInference.generateResponseAsync(inputText: formattedPrompt) { partialResponse, error in
-                if let error = error {
-                    print("Streaming error: \(error)")
-                    return
-                }
+        llmInference.generateResponseAsync(inputText: formattedPrompt, progress: { partialResponse, error in
+            if let error = error {
+                print("Streaming error: \(error)")
+                return
+            }
 
-                if let partial = partialResponse {
-                    fullResponse += partial
-                    DispatchQueue.main.async {
-                        partialHandler(fullResponse)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        completion(fullResponse)
-                    }
-                }
-            } completion: { [weak self] in
-                if self != nil {
-                    // Optional: handle streaming finalization state if needed
+            if let partial = partialResponse {
+                fullResponse += partial
+                DispatchQueue.main.async {
+                    partialHandler(fullResponse)
                 }
             }
-        } catch {
-            print("Failed to start response streaming: \(error)")
+        }, completion: {
             DispatchQueue.main.async {
-                completion("Failed to start generation: \(error.localizedDescription)")
+                completion(fullResponse)
             }
-        }
+        })
     }
 }

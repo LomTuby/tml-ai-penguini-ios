@@ -1,6 +1,6 @@
-# PenguiniBot (Gemma 4 Edition)
+# AI Penguini (Gemma 4 Edition)
 
-PenguiniBot is an offline AI chatbot for iOS featuring a cute, animated penguin. It listens for the keyword "Penguini", processes questions using the **Google Gemma 4 E4B** model locally on your device, and responds with a comical, high-pitched voice and expressive animations.
+AI Penguini is an offline AI chatbot for iOS featuring a cute, animated penguin. It listens for the keyword "Penguini", processes questions using the **Google Gemma 4 E4B** model locally on your device, and responds with a comical, high-pitched voice and expressive animations.
 
 ## Features
 
