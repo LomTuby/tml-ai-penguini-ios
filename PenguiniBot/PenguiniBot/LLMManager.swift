@@ -120,7 +120,7 @@ final class LLMManager: ObservableObject {
     }
 
     private func sendMessage(conversationHandle: OpaquePointer, prompt: String) async throws -> String {
-        let messageString = try jsonMessageString(prompt: prompt)
+        let messageString = try jsonMessageString(prompt: formattedPrompt(prompt))
         guard let responsePtr = litert_lm_conversation_send_message(conversationHandle, messageString, nil, nil) else {
             throw NSError(domain: "LiteRTLM", code: -1, userInfo: [NSLocalizedDescriptionKey: "Native sendMessage returned null."])
         }
@@ -139,7 +139,7 @@ final class LLMManager: ObservableObject {
             let retained = Unmanaged.passRetained(context)
 
             do {
-                let messageString = try jsonMessageString(prompt: prompt)
+                let messageString = try jsonMessageString(prompt: formattedPrompt(prompt))
                 let status = litert_lm_conversation_send_message_stream(
                     conversationHandle,
                     messageString,
@@ -185,13 +185,7 @@ private func streamCallback(
     }
 
     if let responseJson {
-        do {
-            context.continuation.yield(extractText(fromJSON: String(cString: responseJson)))
-        } catch {
-            context.continuation.finish(throwing: error)
-            Unmanaged<LLMManager.StreamContext>.fromOpaque(userData).release()
-            return
-        }
+        context.continuation.yield(extractText(fromJSON: String(cString: responseJson)))
     }
 
     if isFinal {
@@ -223,4 +217,9 @@ private func jsonMessageString(prompt: String) throws -> String {
         throw NSError(domain: "LiteRTLM", code: -3, userInfo: [NSLocalizedDescriptionKey: "Failed to encode message JSON."])
     }
     return string
+}
+
+private func formattedPrompt(_ prompt: String) -> String {
+    let instruction = "You are Penguini, a friendly AI penguin talking to a 10-year-old. Keep answers short, simple, and concise. Avoid long explanations unless asked."
+    return "\(instruction)\n\nUser: \(prompt)"
 }

@@ -9,6 +9,7 @@ class PenguinViewModel: ObservableObject {
     @Published var isListening = false
     @Published var isThinking = false
     @Published var isWakingUp = false
+    @Published var isManualTalkMode = false
 
     private let speechManager = SpeechManager()
     private let llmManager = LLMManager()
@@ -30,6 +31,7 @@ class PenguinViewModel: ObservableObject {
         speechManager.$transcribedText
             .sink { [weak self] text in
                 self?.lastTranscribedText = text
+                // Accessing isWakingUp here should be fine as it's within the MainActor context path of this sink execution.
                 if self?.isWakingUp == true {
                     self?.resetSilenceTimer()
                 }
@@ -38,6 +40,7 @@ class PenguinViewModel: ObservableObject {
 
         speechManager.$keywordDetected
             .sink { [weak self] detected in
+                // Accessing isWakingUp and isThinking here should be fine within the MainActor context path.
                 if detected && self?.isWakingUp == false && self?.isThinking == false {
                     self?.handleKeywordDetected()
                 }
@@ -53,12 +56,14 @@ class PenguinViewModel: ObservableObject {
             .store(in: &cancellables)
 
         voiceManager.onFinishedSpeaking = { [weak self] in
+            // Starting idle state must be safe on Main Actor context which this closure runs on.
             self?.startIdleState()
         }
     }
 
     func startIdleState() {
         isWakingUp = false
+        isManualTalkMode = false
         lastResponse = ""
         speechManager.resetKeywordDetection()
         speechManager.clearTranscription()
@@ -66,7 +71,19 @@ class PenguinViewModel: ObservableObject {
         penguinExpression = .idle
     }
 
+    func startManualTalk() {
+        isManualTalkMode = true
+        isWakingUp = true
+        penguinExpression = .surprised
+        lastTranscribedText = ""
+        lastResponse = ""
+        speechManager.resetKeywordDetection()
+        speechManager.clearTranscription()
+        speechManager.startListening()
+    }
+
     private func handleKeywordDetected() {
+        // Setting state directly within the main actor context is safe.
         isWakingUp = true
         penguinExpression = .surprised
         resetSilenceTimer()
@@ -75,7 +92,9 @@ class PenguinViewModel: ObservableObject {
     private func resetSilenceTimer() {
         silenceTimer?.invalidate()
         silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { [weak self] _ in
-            guard let self = self, self.isWakingUp else { return }
+            // Ensure 'self' exists and is on the Main Actor before accessing properties
+            guard let self = self else { return }
+            guard self.isWakingUp else { return } // Robust check for safety
             self.processQuestion()
         }
     }
@@ -103,7 +122,12 @@ class PenguinViewModel: ObservableObject {
             return
         }
 
+        if isManualTalkMode {
+            question = fullText.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+
         isWakingUp = false
+        isManualTalkMode = false
         speechManager.stopListening()
         lastTranscribedText = "" // Clear to show we're moving on
         isThinking = true
@@ -112,10 +136,11 @@ class PenguinViewModel: ObservableObject {
         llmManager.generateResponseStream(prompt: question, partialHandler: { [weak self] partial in
             self?.lastResponse = partial
         }, completion: { [weak self] finalResponse in
-            self?.isThinking = false
-            self?.lastResponse = finalResponse
-            self?.setExpressionForResponse(finalResponse)
-            self?.voiceManager.speak(finalResponse)
+            guard let self = self else { return } // Added guard for safety
+            self.isThinking = false
+            self.lastResponse = finalResponse
+            self.setExpressionForResponse(finalResponse)
+            self.voiceManager.speak(finalResponse)
         })
     }
 

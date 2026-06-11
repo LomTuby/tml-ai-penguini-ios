@@ -21,8 +21,21 @@ struct PenguinView: View {
                 Spacer()
 
                 VStack(spacing: 20) {
+                    Button(action: {
+                        viewModel.startManualTalk()
+                    }) {
+                        Text(viewModel.isListening && viewModel.isManualTalkMode ? "Listening..." : "Talk to Penguini")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(viewModel.isListening ? Color.blue.opacity(0.2) : Color.blue)
+                            .foregroundColor(viewModel.isListening ? .blue : .white)
+                            .cornerRadius(16)
+                    }
+                    .disabled(viewModel.isThinking || viewModel.isWakingUp)
+
                     if viewModel.isListening {
-                        Text("Listening for 'Penguini'...")
+                        Text(viewModel.isManualTalkMode ? "Listening..." : "Listening for 'Penguini'...")
                             .italic()
                             .foregroundColor(.gray)
                     } else if viewModel.isThinking {
