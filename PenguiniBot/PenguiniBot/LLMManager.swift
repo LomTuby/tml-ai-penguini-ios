@@ -11,13 +11,14 @@ class LLMManager: ObservableObject {
     }
 
     private func setupModel() {
-        guard let modelPath = Bundle.main.path(forResource: "gemma-2b-it-cpu-int4", ofType: "bin") else {
-            print("Model file not found in bundle.")
+        // Updated for Gemma 4 E4B
+        guard let modelPath = Bundle.main.path(forResource: "gemma-4-E4B-it", ofType: "litertlm") else {
+            print("Gemma 4 E4B model file not found in bundle.")
             return
         }
 
         let options = LlmInference.Options(modelPath: modelPath)
-        options.maxTokens = 512
+        options.maxTokens = 1024 // Gemma 4 supports larger contexts
         options.temperature = 0.7
         options.randomSeed = Int.random(in: 0...1000)
 
@@ -27,17 +28,17 @@ class LLMManager: ObservableObject {
                 self.isModelLoaded = true
             }
         } catch {
-            print("Failed to initialize LlmInference: \(error)")
+            print("Failed to initialize LlmInference with Gemma 4: \(error)")
         }
     }
 
     func generateResponse(prompt: String, completion: @escaping (String) -> Void) {
         guard let llmInference = llmInference else {
-            completion("I'm sorry, I'm still waking up. (Model not loaded)")
+            completion("I'm sorry, I'm still waking up. (Gemma 4 not loaded)")
             return
         }
 
-        // Wrap prompt in Gemma format if needed, though MediaPipe handles some of it
+        // Gemma 4 often uses similar prompt formatting, but can be more flexible
         let formattedPrompt = "<start_of_turn>user\n\(prompt)<end_of_turn>\n<start_of_turn>model\n"
 
         DispatchQueue.global(qos: .userInitiated).async {
@@ -55,7 +56,6 @@ class LLMManager: ObservableObject {
         }
     }
 
-    // For streaming responses (better UX)
     func generateResponseStream(prompt: String, partialHandler: @escaping (String) -> Void, completion: @escaping (String) -> Void) {
         guard let llmInference = llmInference else { return }
 
@@ -74,7 +74,6 @@ class LLMManager: ObservableObject {
                     partialHandler(fullResponse)
                 }
             } else {
-                // Final call
                 DispatchQueue.main.async {
                     completion(fullResponse)
                 }
