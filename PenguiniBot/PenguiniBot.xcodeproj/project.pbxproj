@@ -7,31 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D5D811EA9E13453B8F61C772 /* PenguiniBotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3628669FBC694F85956EDDB8 /* PenguiniBotApp.swift */; };
-		4838CEA8C6184362B63430F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D3BBE194494D748A52B8CE /* ContentView.swift */; };
-		80EFC70C847A40B5BEC9BCD0 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A3E27456C444A192272CB5 /* SpeechManager.swift */; };
-		8C8744042D8D40D29DB7F31C /* LLMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1C0150C48548EA8D0BEBC9 /* LLMManager.swift */; };
-		95B73C592D174071B7AD58F8 /* VoiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43058BFA3EFC45D38FE03B97 /* VoiceManager.swift */; };
-		B90108E90D5D432FA3C8A739 /* PenguinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC3163E90B148E2866B93F5 /* PenguinView.swift */; };
-		53ECD128C7B949968095A11A /* PenguinFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA5716E31D047109994FB5D /* PenguinFace.swift */; };
-		610559730EC94421B725BE9A /* PenguinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE30AA50695646EE9CEBCA5A /* PenguinViewModel.swift */; };
+		77D9E7F4E18840398A537746 /* PenguiniBotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DEBC87F1E041788E65ACB0 /* PenguiniBotApp.swift */; };
+		0382A3772575406ABA4F2506 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BE9AC97A6B4A9CAE7F8B48 /* ContentView.swift */; };
+		611D096AE3C845B8AA2C46E1 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B2307F4775462A80D41FAE /* SpeechManager.swift */; };
+		5856DAFD1EF64CC28FD5BA8B /* LLMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F705907A59374521B4880C5D /* LLMManager.swift */; };
+		255FEC1F5AC84E6F8DB559EF /* VoiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DB826598A14C24897CAACB /* VoiceManager.swift */; };
+		CEDA5DDB3A0F4E11A6183ED2 /* PenguinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B40202587414752B1965842 /* PenguinView.swift */; };
+		1D2DAB628E2F4B43B25625CC /* PenguinFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A8395209E4A4A8BBF970C /* PenguinFace.swift */; };
+		9F662AE0650F4A76B07B4EE0 /* PenguinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E6BD50AB8C47F7B993DC35 /* PenguinViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		71B721A65CE94E07A7DB7FAF /* PenguiniBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PenguiniBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3628669FBC694F85956EDDB8 /* PenguiniBotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguiniBotApp.swift; sourceTree = "<group>"; };
-		25D3BBE194494D748A52B8CE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		76A3E27456C444A192272CB5 /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
-		7F1C0150C48548EA8D0BEBC9 /* LLMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMManager.swift; sourceTree = "<group>"; };
-		43058BFA3EFC45D38FE03B97 /* VoiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceManager.swift; sourceTree = "<group>"; };
-		FEC3163E90B148E2866B93F5 /* PenguinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguinView.swift; sourceTree = "<group>"; };
-		5FA5716E31D047109994FB5D /* PenguinFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguinFace.swift; sourceTree = "<group>"; };
-		DE30AA50695646EE9CEBCA5A /* PenguinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguinViewModel.swift; sourceTree = "<group>"; };
-		5B21AA5E42C34CC3AF9088A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22A74127BB644473B130DA40 /* PenguiniBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PenguiniBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0DEBC87F1E041788E65ACB0 /* PenguiniBotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguiniBotApp.swift; sourceTree = "<group>"; };
+		D2BE9AC97A6B4A9CAE7F8B48 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		36B2307F4775462A80D41FAE /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
+		F705907A59374521B4880C5D /* LLMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMManager.swift; sourceTree = "<group>"; };
+		15DB826598A14C24897CAACB /* VoiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceManager.swift; sourceTree = "<group>"; };
+		6B40202587414752B1965842 /* PenguinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguinView.swift; sourceTree = "<group>"; };
+		D34A8395209E4A4A8BBF970C /* PenguinFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguinFace.swift; sourceTree = "<group>"; };
+		D4E6BD50AB8C47F7B993DC35 /* PenguinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguinViewModel.swift; sourceTree = "<group>"; };
+		D4D7AEDD13334B61A40373C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		309955388FFD48979140BA97 /* Frameworks */ = {
+		E87C4BA5E7D4408AA2A5371C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -41,34 +41,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9EE18AE05C49497B8A5D788F = {
+		742B00BD3F1B4DDB91781D92 = {
 			isa = PBXGroup;
 			children = (
-				44BDE2412D51409792676977 /* PenguiniBot */,
-				B07D7624DC55414B91E5C110 /* Products */,
+				5719DF4CB33B40B5817A7948 /* PenguiniBot */,
+				10EE308D300C4BBA97840E27 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		B07D7624DC55414B91E5C110 /* Products */ = {
+		10EE308D300C4BBA97840E27 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				71B721A65CE94E07A7DB7FAF /* PenguiniBot.app */,
+				22A74127BB644473B130DA40 /* PenguiniBot.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		44BDE2412D51409792676977 /* PenguiniBot */ = {
+		5719DF4CB33B40B5817A7948 /* PenguiniBot */ = {
 			isa = PBXGroup;
 			children = (
-				3628669FBC694F85956EDDB8 /* PenguiniBotApp.swift */,
-				25D3BBE194494D748A52B8CE /* ContentView.swift */,
-				76A3E27456C444A192272CB5 /* SpeechManager.swift */,
-				7F1C0150C48548EA8D0BEBC9 /* LLMManager.swift */,
-				43058BFA3EFC45D38FE03B97 /* VoiceManager.swift */,
-				FEC3163E90B148E2866B93F5 /* PenguinView.swift */,
-				5FA5716E31D047109994FB5D /* PenguinFace.swift */,
-				DE30AA50695646EE9CEBCA5A /* PenguinViewModel.swift */,
-				5B21AA5E42C34CC3AF9088A3 /* Info.plist */,
+				B0DEBC87F1E041788E65ACB0 /* PenguiniBotApp.swift */,
+				D2BE9AC97A6B4A9CAE7F8B48 /* ContentView.swift */,
+				36B2307F4775462A80D41FAE /* SpeechManager.swift */,
+				F705907A59374521B4880C5D /* LLMManager.swift */,
+				15DB826598A14C24897CAACB /* VoiceManager.swift */,
+				6B40202587414752B1965842 /* PenguinView.swift */,
+				D34A8395209E4A4A8BBF970C /* PenguinFace.swift */,
+				D4E6BD50AB8C47F7B993DC35 /* PenguinViewModel.swift */,
+				D4D7AEDD13334B61A40373C7 /* Info.plist */,
 			);
 			path = PenguiniBot;
 			sourceTree = "<group>";
@@ -76,39 +76,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A8B23A39181C49119625741A /* PenguiniBot */ = {
+		0B54F8E674FD460FB3E260E6 /* PenguiniBot */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 54C5458F5E46423CB2191018 /* Build configuration list for PBXNativeTarget "PenguiniBot" */;
+			buildConfigurationList = D4B6B932F8B94910AE6EAD8B /* Build configuration list for PBXNativeTarget "PenguiniBot" */;
 			buildPhases = (
-				A929D332CCCD4FBDB76F09E4 /* Sources */,
-				309955388FFD48979140BA97 /* Frameworks */,
-				DCA70D70997D4F6B9FF914CB /* Resources */,
+				EAB068DDB03F4D038182FC42 /* Sources */,
+				E87C4BA5E7D4408AA2A5371C /* Frameworks */,
+				F18A07285F9E43708A9CC8DF /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = PenguiniBot;
+			packageProductDependencies = (
+				4D0C3BF61D434842804E92C8 /* SwiftTasksGenAI */,
+			);
 			productName = PenguiniBot;
-			productReference = 71B721A65CE94E07A7DB7FAF /* PenguiniBot.app */;
+			productReference = 22A74127BB644473B130DA40 /* PenguiniBot.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		52BBBE5DEB374A6A8FC9E5E7 /* Project object */ = {
+		93F77815FFEA4FDBA84E7360 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
-					A8B23A39181C49119625741A = {
+					0B54F8E674FD460FB3E260E6 = {
 						CreatedOnToolsVersion = 15.4;
 					};
 				};
 			};
-			buildConfigurationList = A287E337F1DD4FDB9C625FE8 /* Build configuration list for PBXProject "PenguiniBot" */;
+			buildConfigurationList = 091921744673439AB9E28C79 /* Build configuration list for PBXProject "PenguiniBot" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -116,18 +119,21 @@
 				en,
 				Base,
 			);
-			mainGroup = 9EE18AE05C49497B8A5D788F;
-			productRefGroup = B07D7624DC55414B91E5C110 /* Products */;
+			mainGroup = 742B00BD3F1B4DDB91781D92;
+			packageReferences = (
+				D7561C13E1C94D20A8E3F46B /* XCRemoteSwiftPackageReference "SwiftTasksGenAI" */,
+			);
+			productRefGroup = 10EE308D300C4BBA97840E27 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A8B23A39181C49119625741A /* PenguiniBot */,
+				0B54F8E674FD460FB3E260E6 /* PenguiniBot */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		DCA70D70997D4F6B9FF914CB /* Resources */ = {
+		F18A07285F9E43708A9CC8DF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -137,25 +143,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A929D332CCCD4FBDB76F09E4 /* Sources */ = {
+		EAB068DDB03F4D038182FC42 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5D811EA9E13453B8F61C772 /* PenguiniBotApp.swift in Sources */,
-				4838CEA8C6184362B63430F0 /* ContentView.swift in Sources */,
-				80EFC70C847A40B5BEC9BCD0 /* SpeechManager.swift in Sources */,
-				8C8744042D8D40D29DB7F31C /* LLMManager.swift in Sources */,
-				95B73C592D174071B7AD58F8 /* VoiceManager.swift in Sources */,
-				B90108E90D5D432FA3C8A739 /* PenguinView.swift in Sources */,
-				53ECD128C7B949968095A11A /* PenguinFace.swift in Sources */,
-				610559730EC94421B725BE9A /* PenguinViewModel.swift in Sources */,
+				77D9E7F4E18840398A537746 /* PenguiniBotApp.swift in Sources */,
+				0382A3772575406ABA4F2506 /* ContentView.swift in Sources */,
+				611D096AE3C845B8AA2C46E1 /* SpeechManager.swift in Sources */,
+				5856DAFD1EF64CC28FD5BA8B /* LLMManager.swift in Sources */,
+				255FEC1F5AC84E6F8DB559EF /* VoiceManager.swift in Sources */,
+				CEDA5DDB3A0F4E11A6183ED2 /* PenguinView.swift in Sources */,
+				1D2DAB628E2F4B43B25625CC /* PenguinFace.swift in Sources */,
+				9F662AE0650F4A76B07B4EE0 /* PenguinViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		3B4CA8C65F1D4D7E8FB8A90F /* Debug */ = {
+		6931430EBA044117967DAEB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -184,7 +190,7 @@
 			};
 			name = Debug;
 		};
-		AD5A0971DEAC4C0886B636C6 /* Release */ = {
+		56AF2B69B9734E52B677D63C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -208,7 +214,7 @@
 			};
 			name = Release;
 		};
-		3F5261236AF5411F80BEC0B0 /* Debug */ = {
+		1170A046A48E4408A5E56767 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -227,7 +233,7 @@
 			};
 			name = Debug;
 		};
-		917DBF5EE1A04E77B21C3E59 /* Release */ = {
+		A1F1B9504810492AA0CB2A72 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -249,25 +255,44 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A287E337F1DD4FDB9C625FE8 /* Build configuration list for PBXProject "PenguiniBot" */ = {
+		091921744673439AB9E28C79 /* Build configuration list for PBXProject "PenguiniBot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3B4CA8C65F1D4D7E8FB8A90F /* Debug */,
-				AD5A0971DEAC4C0886B636C6 /* Release */,
+				6931430EBA044117967DAEB7 /* Debug */,
+				56AF2B69B9734E52B677D63C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		54C5458F5E46423CB2191018 /* Build configuration list for PBXNativeTarget "PenguiniBot" */ = {
+		D4B6B932F8B94910AE6EAD8B /* Build configuration list for PBXNativeTarget "PenguiniBot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3F5261236AF5411F80BEC0B0 /* Debug */,
-				917DBF5EE1A04E77B21C3E59 /* Release */,
+				1170A046A48E4408A5E56767 /* Debug */,
+				A1F1B9504810492AA0CB2A72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D7561C13E1C94D20A8E3F46B /* XCRemoteSwiftPackageReference "SwiftTasksGenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/paescebu/SwiftTasksGenAI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4D0C3BF61D434842804E92C8 /* SwiftTasksGenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7561C13E1C94D20A8E3F46B /* XCRemoteSwiftPackageReference "SwiftTasksGenAI" */;
+			productName = SwiftTasksGenAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 52BBBE5DEB374A6A8FC9E5E7 /* Project object */;
+	rootObject = 93F77815FFEA4FDBA84E7360 /* Project object */;
 }

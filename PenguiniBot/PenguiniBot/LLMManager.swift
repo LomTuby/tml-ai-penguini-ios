@@ -1,5 +1,10 @@
 import Foundation
+
+#if canImport(MediaPipeTasksGenAI)
 import MediaPipeTasksGenAI
+#elseif canImport(SwiftTasksGenAI)
+import SwiftTasksGenAI
+#endif
 
 class LLMManager: ObservableObject {
     private var llmInference: LlmInference?
@@ -18,7 +23,7 @@ class LLMManager: ObservableObject {
         }
 
         let options = LlmInference.Options(modelPath: modelPath)
-        options.maxTokens = 1024 // Gemma 4 supports larger contexts
+        options.maxTokens = 1024
         options.temperature = 0.7
         options.randomSeed = Int.random(in: 0...1000)
 
@@ -38,7 +43,6 @@ class LLMManager: ObservableObject {
             return
         }
 
-        // Gemma 4 often uses similar prompt formatting, but can be more flexible
         let formattedPrompt = "<start_of_turn>user\n\(prompt)<end_of_turn>\n<start_of_turn>model\n"
 
         DispatchQueue.global(qos: .userInitiated).async {
