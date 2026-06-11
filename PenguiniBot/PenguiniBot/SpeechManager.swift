@@ -12,7 +12,7 @@ class SpeechManager: ObservableObject {
     private var recognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
 
-    private let keyword = "penguini"
+    private let keywords = ["penguini", "penguin", "penguino", "pingu", "hey penguini", "hi penguini"]
 
     func requestPermissions() {
         SFSpeechRecognizer.requestAuthorization { _ in
@@ -82,8 +82,13 @@ class SpeechManager: ObservableObject {
                 let text = result.bestTranscription.formattedString.lowercased()
                 self.transcribedText = text
 
-                if !self.keywordDetected && text.contains(self.keyword) {
-                    self.keywordDetected = true
+                if !self.keywordDetected {
+                    for kw in self.keywords {
+                        if text.contains(kw) {
+                            self.keywordDetected = true
+                            break
+                        }
+                    }
                 }
             }
 

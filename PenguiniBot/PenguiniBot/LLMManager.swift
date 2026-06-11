@@ -24,8 +24,6 @@ class LLMManager: ObservableObject {
 
         let options = LlmInference.Options(modelPath: modelPath)
         options.maxTokens = 1024
-        options.temperature = 0.7
-        options.randomSeed = Int.random(in: 0...1000)
 
         do {
             llmInference = try LlmInference(options: options)
@@ -61,12 +59,15 @@ class LLMManager: ObservableObject {
     }
 
     func generateResponseStream(prompt: String, partialHandler: @escaping (String) -> Void, completion: @escaping (String) -> Void) {
-        guard let llmInference = llmInference else { return }
+        guard let llmInference = llmInference else {
+            completion("LLM not loaded.")
+            return
+        }
 
         let formattedPrompt = "<start_of_turn>user\n\(prompt)<end_of_turn>\n<start_of_turn>model\n"
         var fullResponse = ""
 
-        llmInference.generateResponseAsync(inputText: formattedPrompt) { partialResponse, error in
+        llmInference.generateResponseAsync(inputText: formattedPrompt, progress: { partialResponse, error in
             if let error = error {
                 print("Streaming error: \(error)")
                 return
@@ -77,11 +78,11 @@ class LLMManager: ObservableObject {
                 DispatchQueue.main.async {
                     partialHandler(fullResponse)
                 }
-            } else {
-                DispatchQueue.main.async {
-                    completion(fullResponse)
-                }
             }
-        }
+        }, completion: {
+            DispatchQueue.main.async {
+                completion(fullResponse)
+            }
+        })
     }
 }

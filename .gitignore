@@ -1,3 +1,4 @@
 *.litertlm
 *.bin
 *.task
+node_modules/

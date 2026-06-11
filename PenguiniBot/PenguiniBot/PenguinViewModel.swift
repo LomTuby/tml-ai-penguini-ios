@@ -14,6 +14,7 @@ class PenguinViewModel: ObservableObject {
     private let voiceManager = VoiceManager()
 
     private var cancellables = Set<AnyCancellable>()
+    private var silenceTimer: Timer?
 
     init() {
         setupBindings()
@@ -26,7 +27,13 @@ class PenguinViewModel: ObservableObject {
             .assign(to: &$isListening)
 
         speechManager.$transcribedText
-            .assign(to: &$lastTranscribedText)
+            .sink { [weak self] text in
+                self?.lastTranscribedText = text
+                if self?.isWakingUp == true {
+                    self?.resetSilenceTimer()
+                }
+            }
+            .store(in: &cancellables)
 
         speechManager.$keywordDetected
             .sink { [weak self] detected in
@@ -61,24 +68,35 @@ class PenguinViewModel: ObservableObject {
     private func handleKeywordDetected() {
         isWakingUp = true
         penguinExpression = .surprised
+        resetSilenceTimer()
+    }
 
-        // Wait 3 seconds for the user to finish their question
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            // Check if we are already thinking (prevent multiple triggers)
-            if self.isWakingUp {
-                self.processQuestion()
-                self.isWakingUp = false
-            }
+    private func resetSilenceTimer() {
+        silenceTimer?.invalidate()
+        silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { [weak self] _ in
+            guard let self = self, self.isWakingUp else { return }
+            self.processQuestion()
         }
     }
 
     private func processQuestion() {
         let fullText = lastTranscribedText
-        let keyword = "penguini"
+        let keywords = ["penguini", "penguin", "penguino", "pingu", "hey penguini", "hi penguini"]
 
         var question = fullText
-        if let range = fullText.range(of: keyword) {
-            question = String(fullText[range.upperBound...]).trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // Find the first occurrence of any keyword and take the text after it
+        var lowestIndex: String.Index?
+        var matchedKeywordLength = 0
+
+        for kw in keywords {
+            if let range = fullText.range(of: kw) {
+                if lowestIndex == nil || range.lowerBound < lowestIndex! {
+                    lowestIndex = range.lowerBound
+                    matchedKeywordLength = kw.count
+                    question = String(fullText[range.upperBound...]).trimmingCharacters(in: .whitespacesAndNewlines)
+                }
+            }
         }
 
         guard !question.isEmpty else {
@@ -86,16 +104,20 @@ class PenguinViewModel: ObservableObject {
             return
         }
 
+        isWakingUp = false
         speechManager.stopListening()
+        lastTranscribedText = "" // Clear to show we're moving on
         isThinking = true
         penguinExpression = .thinking
 
-        llmManager.generateResponse(prompt: question) { [weak self] response in
+        llmManager.generateResponseStream(prompt: question, partialHandler: { [weak self] partial in
+            self?.lastResponse = partial
+        }, completion: { [weak self] finalResponse in
             self?.isThinking = false
-            self?.lastResponse = response
-            self?.setExpressionForResponse(response)
-            self?.voiceManager.speak(response)
-        }
+            self?.lastResponse = finalResponse
+            self?.setExpressionForResponse(finalResponse)
+            self?.voiceManager.speak(finalResponse)
+        })
     }
 
     private func setExpressionForResponse(_ response: String) {
