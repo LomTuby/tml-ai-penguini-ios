@@ -48,7 +48,7 @@ struct PenguinFace: View {
         .onAppear {
             startIdleAnimations()
         }
-        .onChange(of: expression) { newExpression in
+        .onChange(of: expression) { _, newExpression in
             handleExpressionChange(newExpression)
         }
     }
