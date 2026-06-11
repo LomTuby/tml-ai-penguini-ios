@@ -4,7 +4,7 @@ import PackageDescription
 var package = Package(
     name: "PenguiniBot",
     dependencies: [
-        .package(url: "https://github.com/paescebu/SwiftTasksGenAI", from: "0.10.24")
+        .package(url: "https://github.com/google-ai-edge/LiteRT-LM", from: "0.13.1")
     ]
 )
 
@@ -12,7 +12,7 @@ package.targets = [
     .target(
         name: "PenguiniBot",
         dependencies: [
-            .product(name: "SwiftTasksGenAI", package: "SwiftTasksGenAI")
+            .product(name: "LiteRTLM", package: "LiteRT-LM")
         ]
     )
 ]
