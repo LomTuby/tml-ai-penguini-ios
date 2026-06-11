@@ -21,7 +21,7 @@ def check_file(filepath, required_imports, required_keywords):
 
 files_to_check = [
     ("PenguiniBot/PenguiniBot/SpeechManager.swift", ["Speech", "AVFoundation"], ["SFSpeechRecognizer", "penguini"]),
-    ("PenguiniBot/PenguiniBot/LLMManager.swift", ["MediaPipeTasksGenAI"], ["LlmInference", "gemma"]),
+    ("PenguiniBot/PenguiniBot/LLMManager.swift", ["MediaPipeTasksGenAI"], ["LlmInference", "gemma-4-E4B-it"]),
     ("PenguiniBot/PenguiniBot/VoiceManager.swift", ["AVFoundation"], ["AVSpeechSynthesizer", "pitchMultiplier"]),
     ("PenguiniBot/PenguiniBot/PenguinFace.swift", ["SwiftUI"], ["PenguinExpression", "BeakView"]),
     ("PenguiniBot/PenguiniBot/PenguinViewModel.swift", ["Combine"], ["PenguinViewModel", "llmManager"]),
