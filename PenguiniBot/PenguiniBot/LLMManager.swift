@@ -64,33 +64,22 @@ class LLMManager: ObservableObject {
         let formattedPrompt = "<start_of_turn>user\n\(prompt)<end_of_turn>\n<start_of_turn>model\n"
         var fullResponse = ""
 
-        do {
-            // Added 'try' here because generateResponseAsync can throw initialization/runtime configuration errors
-            try llmInference.generateResponseAsync(inputText: formattedPrompt) { partialResponse, error in
-                if let error = error {
-                    print("Streaming error: \(error)")
-                    return
-                }
+        // generateResponseAsync is not a throwing function in the current SDK version
+        llmInference.generateResponseAsync(inputText: formattedPrompt) { partialResponse, error in
+            if let error = error {
+                print("Streaming error: \(error)")
+                return
+            }
 
-                if let partial = partialResponse {
-                    fullResponse += partial
-                    DispatchQueue.main.async {
-                        partialHandler(fullResponse)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        completion(fullResponse)
-                    }
-                }
-            } completion: { [weak self] in
-                if self != nil {
-                    // Optional: handle streaming finalization state if needed
+            if let partial = partialResponse {
+                fullResponse += partial
+                DispatchQueue.main.async {
+                    partialHandler(fullResponse)
                 }
             }
-        } catch {
-            print("Failed to start response streaming: \(error)")
+        } completion: {
             DispatchQueue.main.async {
-                completion("Failed to start generation: \(error.localizedDescription)")
+                completion(fullResponse)
             }
         }
     }
