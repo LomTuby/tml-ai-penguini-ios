@@ -87,13 +87,11 @@ class PenguinViewModel: ObservableObject {
 
         // Find the first occurrence of any keyword and take the text after it
         var lowestIndex: String.Index?
-        var matchedKeywordLength = 0
 
         for kw in keywords {
             if let range = fullText.range(of: kw) {
                 if lowestIndex == nil || range.lowerBound < lowestIndex! {
                     lowestIndex = range.lowerBound
-                    matchedKeywordLength = kw.count
                     question = String(fullText[range.upperBound...]).trimmingCharacters(in: .whitespacesAndNewlines)
                 }
             }
