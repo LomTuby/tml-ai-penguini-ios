@@ -1,0 +1,273 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D5D811EA9E13453B8F61C772 /* PenguiniBotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3628669FBC694F85956EDDB8 /* PenguiniBotApp.swift */; };
+		4838CEA8C6184362B63430F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D3BBE194494D748A52B8CE /* ContentView.swift */; };
+		80EFC70C847A40B5BEC9BCD0 /* SpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A3E27456C444A192272CB5 /* SpeechManager.swift */; };
+		8C8744042D8D40D29DB7F31C /* LLMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1C0150C48548EA8D0BEBC9 /* LLMManager.swift */; };
+		95B73C592D174071B7AD58F8 /* VoiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43058BFA3EFC45D38FE03B97 /* VoiceManager.swift */; };
+		B90108E90D5D432FA3C8A739 /* PenguinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC3163E90B148E2866B93F5 /* PenguinView.swift */; };
+		53ECD128C7B949968095A11A /* PenguinFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA5716E31D047109994FB5D /* PenguinFace.swift */; };
+		610559730EC94421B725BE9A /* PenguinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE30AA50695646EE9CEBCA5A /* PenguinViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		71B721A65CE94E07A7DB7FAF /* PenguiniBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PenguiniBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3628669FBC694F85956EDDB8 /* PenguiniBotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguiniBotApp.swift; sourceTree = "<group>"; };
+		25D3BBE194494D748A52B8CE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		76A3E27456C444A192272CB5 /* SpeechManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechManager.swift; sourceTree = "<group>"; };
+		7F1C0150C48548EA8D0BEBC9 /* LLMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMManager.swift; sourceTree = "<group>"; };
+		43058BFA3EFC45D38FE03B97 /* VoiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceManager.swift; sourceTree = "<group>"; };
+		FEC3163E90B148E2866B93F5 /* PenguinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguinView.swift; sourceTree = "<group>"; };
+		5FA5716E31D047109994FB5D /* PenguinFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguinFace.swift; sourceTree = "<group>"; };
+		DE30AA50695646EE9CEBCA5A /* PenguinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenguinViewModel.swift; sourceTree = "<group>"; };
+		5B21AA5E42C34CC3AF9088A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		309955388FFD48979140BA97 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9EE18AE05C49497B8A5D788F = {
+			isa = PBXGroup;
+			children = (
+				44BDE2412D51409792676977 /* PenguiniBot */,
+				B07D7624DC55414B91E5C110 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B07D7624DC55414B91E5C110 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				71B721A65CE94E07A7DB7FAF /* PenguiniBot.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		44BDE2412D51409792676977 /* PenguiniBot */ = {
+			isa = PBXGroup;
+			children = (
+				3628669FBC694F85956EDDB8 /* PenguiniBotApp.swift */,
+				25D3BBE194494D748A52B8CE /* ContentView.swift */,
+				76A3E27456C444A192272CB5 /* SpeechManager.swift */,
+				7F1C0150C48548EA8D0BEBC9 /* LLMManager.swift */,
+				43058BFA3EFC45D38FE03B97 /* VoiceManager.swift */,
+				FEC3163E90B148E2866B93F5 /* PenguinView.swift */,
+				5FA5716E31D047109994FB5D /* PenguinFace.swift */,
+				DE30AA50695646EE9CEBCA5A /* PenguinViewModel.swift */,
+				5B21AA5E42C34CC3AF9088A3 /* Info.plist */,
+			);
+			path = PenguiniBot;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A8B23A39181C49119625741A /* PenguiniBot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 54C5458F5E46423CB2191018 /* Build configuration list for PBXNativeTarget "PenguiniBot" */;
+			buildPhases = (
+				A929D332CCCD4FBDB76F09E4 /* Sources */,
+				309955388FFD48979140BA97 /* Frameworks */,
+				DCA70D70997D4F6B9FF914CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PenguiniBot;
+			productName = PenguiniBot;
+			productReference = 71B721A65CE94E07A7DB7FAF /* PenguiniBot.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		52BBBE5DEB374A6A8FC9E5E7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					A8B23A39181C49119625741A = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = A287E337F1DD4FDB9C625FE8 /* Build configuration list for PBXProject "PenguiniBot" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9EE18AE05C49497B8A5D788F;
+			productRefGroup = B07D7624DC55414B91E5C110 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A8B23A39181C49119625741A /* PenguiniBot */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DCA70D70997D4F6B9FF914CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A929D332CCCD4FBDB76F09E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5D811EA9E13453B8F61C772 /* PenguiniBotApp.swift in Sources */,
+				4838CEA8C6184362B63430F0 /* ContentView.swift in Sources */,
+				80EFC70C847A40B5BEC9BCD0 /* SpeechManager.swift in Sources */,
+				8C8744042D8D40D29DB7F31C /* LLMManager.swift in Sources */,
+				95B73C592D174071B7AD58F8 /* VoiceManager.swift in Sources */,
+				B90108E90D5D432FA3C8A739 /* PenguinView.swift in Sources */,
+				53ECD128C7B949968095A11A /* PenguinFace.swift in Sources */,
+				610559730EC94421B725BE9A /* PenguinViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3B4CA8C65F1D4D7E8FB8A90F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AD5A0971DEAC4C0886B636C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3F5261236AF5411F80BEC0B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PenguiniBot/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.PenguiniBot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		917DBF5EE1A04E77B21C3E59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PenguiniBot/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.PenguiniBot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A287E337F1DD4FDB9C625FE8 /* Build configuration list for PBXProject "PenguiniBot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B4CA8C65F1D4D7E8FB8A90F /* Debug */,
+				AD5A0971DEAC4C0886B636C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		54C5458F5E46423CB2191018 /* Build configuration list for PBXNativeTarget "PenguiniBot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F5261236AF5411F80BEC0B0 /* Debug */,
+				917DBF5EE1A04E77B21C3E59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 52BBBE5DEB374A6A8FC9E5E7 /* Project object */;
+}
