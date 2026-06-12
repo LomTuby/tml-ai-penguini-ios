@@ -98,18 +98,19 @@ final class LLMManager: ObservableObject {
 
         Task {
             do {
-                var fullResponse = ""
+                let accumulator = ResponseAccumulator()
                 for try await chunk in sendMessageStream(conversationHandle: conversationHandle, prompt: prompt) {
-                    // Mutation of fullResponse is contained within this Task block.
-                    fullResponse += chunk
+                    accumulator.append(chunk)
+                    let snapshot = accumulator.value
                     DispatchQueue.main.async {
-                        partialHandler(fullResponse)
+                        partialHandler(snapshot)
                     }
                 }
 
+                let finalResponse = accumulator.value
                 DispatchQueue.main.async {
-                    self.responseText = fullResponse
-                    completion(fullResponse)
+                    self.responseText = finalResponse
+                    completion(finalResponse)
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -165,6 +166,14 @@ final class LLMManager: ObservableObject {
 
         init(continuation: AsyncThrowingStream<String, Error>.Continuation) {
             self.continuation = continuation
+        }
+    }
+
+    private final class ResponseAccumulator {
+        var value = ""
+
+        func append(_ chunk: String) {
+            value += chunk
         }
     }
 }

@@ -1,31 +1,36 @@
 import Foundation
 import AVFoundation
 
-class VoiceManager: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
-    private let synthesizer = AVSpeechSynthesizer()
+@MainActor
+final class VoiceManager: NSObject, ObservableObject {
+    private let synthesizer: AVSpeechSynthesizer
+    private let delegateProxy: SpeechDelegateProxy
     @Published var isSpeaking = false
 
     var onFinishedSpeaking: (() -> Void)?
     var onSpeechPowerChanged: ((Float) -> Void)?
 
     override init() {
+        self.synthesizer = AVSpeechSynthesizer()
+        self.delegateProxy = SpeechDelegateProxy()
         super.init()
-        synthesizer.delegate = self
+
+        delegateProxy.onStart = { [weak self] in
+            self?.isSpeaking = true
+        }
+        delegateProxy.onFinish = { [weak self] in
+            self?.isSpeaking = false
+            self?.onFinishedSpeaking?()
+        }
+
+        synthesizer.delegate = delegateProxy
     }
 
     func speak(_ text: String) {
         let utterance = AVSpeechUtterance(string: text)
-
-        // Comical penguin voice: High pitch, slightly faster
-        utterance.pitchMultiplier = 1.6
-        utterance.rate = 0.55
-        utterance.volume = 1.0
-
-        // Select a voice that sounds okay with high pitch (e.g., Samantha or a younger-sounding one)
-        if let voice = AVSpeechSynthesisVoice(language: "en-US") {
-            utterance.voice = voice
-        }
-
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = 0.48
+        utterance.pitchMultiplier = 1.35
         synthesizer.speak(utterance)
     }
 
@@ -33,19 +38,21 @@ class VoiceManager: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         synthesizer.stopSpeaking(at: .immediate)
         isSpeaking = false
     }
+}
 
-    // MARK: - AVSpeechSynthesizerDelegate
+private final class SpeechDelegateProxy: NSObject, AVSpeechSynthesizerDelegate {
+    var onStart: (() -> Void)?
+    var onFinish: (() -> Void)?
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        DispatchQueue.main.async {
-            self.isSpeaking = true
+        Task { @MainActor in
+            self.onStart?()
         }
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        DispatchQueue.main.async {
-            self.isSpeaking = false
-            self.onFinishedSpeaking?()
+        Task { @MainActor in
+            self.onFinish?()
         }
     }
 }

@@ -17,6 +17,15 @@ class PenguinViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
     private var silenceTimer: Timer?
+    private var idleChatterTimer: Timer?
+
+    private let idleLines = [
+        "Bloop bloop! I am a very handsome penguin.",
+        "Did you know penguins can't fly? But we do look great.",
+        "I am practicing my best waddles.",
+        "Knock knock. Who's there? Ice. Ice who? Ice to meet you!",
+        "Fun fact: penguins love chilly adventures."
+    ]
 
     init() {
         setupBindings()
@@ -30,27 +39,30 @@ class PenguinViewModel: ObservableObject {
 
         speechManager.$transcribedText
             .sink { [weak self] text in
-                self?.lastTranscribedText = text
-                // Accessing isWakingUp here should be fine as it's within the MainActor context path of this sink execution.
-                if self?.isWakingUp == true {
-                    self?.resetSilenceTimer()
+                guard let self = self else { return }
+                self.lastTranscribedText = text
+                // Accessing isWakingUp here is safe because this sink executes on the Main Actor context.
+                if self.isWakingUp {
+                    self.resetSilenceTimer()
                 }
             }
             .store(in: &cancellables)
 
         speechManager.$keywordDetected
             .sink { [weak self] detected in
-                // Accessing isWakingUp and isThinking here should be fine within the MainActor context path.
-                if detected && self?.isWakingUp == false && self?.isThinking == false {
-                    self?.handleKeywordDetected()
+                guard let self = self else { return }
+                // Accessing isWakingUp and isThinking here is safe within the MainActor context path.
+                if detected && !self.isWakingUp && !self.isThinking {
+                    self.handleKeywordDetected()
                 }
             }
             .store(in: &cancellables)
 
         voiceManager.$isSpeaking
             .sink { [weak self] speaking in
+                guard let self = self else { return }
                 if speaking {
-                    self?.penguinExpression = .speaking
+                    self.penguinExpression = .speaking
                 }
             }
             .store(in: &cancellables)
@@ -62,6 +74,8 @@ class PenguinViewModel: ObservableObject {
     }
 
     func startIdleState() {
+        silenceTimer?.invalidate()
+        idleChatterTimer?.invalidate()
         isWakingUp = false
         isManualTalkMode = false
         lastResponse = ""
@@ -69,9 +83,11 @@ class PenguinViewModel: ObservableObject {
         speechManager.clearTranscription()
         speechManager.startListening()
         penguinExpression = .idle
+        scheduleIdleChatterTimer()
     }
 
     func startManualTalk() {
+        idleChatterTimer?.invalidate()
         isManualTalkMode = true
         isWakingUp = true
         penguinExpression = .surprised
@@ -82,8 +98,25 @@ class PenguinViewModel: ObservableObject {
         speechManager.startListening()
     }
 
+    func toggleManualTalk() {
+        if isManualTalkMode || isWakingUp || isThinking {
+            stopManualTalk()
+        } else {
+            startManualTalk()
+        }
+    }
+
+    private func stopManualTalk() {
+        silenceTimer?.invalidate()
+        isWakingUp = false
+        isManualTalkMode = false
+        speechManager.stopListening()
+        startIdleState()
+    }
+
     private func handleKeywordDetected() {
         // Setting state directly within the main actor context is safe.
+        idleChatterTimer?.invalidate()
         isWakingUp = true
         penguinExpression = .surprised
         resetSilenceTimer()
@@ -92,14 +125,16 @@ class PenguinViewModel: ObservableObject {
     private func resetSilenceTimer() {
         silenceTimer?.invalidate()
         silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { [weak self] _ in
-            // Ensure 'self' exists and is on the Main Actor before accessing properties
             guard let self = self else { return }
-            guard self.isWakingUp else { return } // Robust check for safety
-            self.processQuestion()
+            Task { @MainActor in
+                guard self.isWakingUp else { return }
+                await self.processQuestion()
+            }
         }
     }
 
-    private func processQuestion() {
+    private func processQuestion() async {
+        idleChatterTimer?.invalidate()
         let fullText = lastTranscribedText
         let keywords = ["penguini", "penguin", "penguino", "pingu", "hey penguini", "hi penguini"]
 
@@ -136,12 +171,36 @@ class PenguinViewModel: ObservableObject {
         llmManager.generateResponseStream(prompt: question, partialHandler: { [weak self] partial in
             self?.lastResponse = partial
         }, completion: { [weak self] finalResponse in
-            guard let self = self else { return } // Added guard for safety
-            self.isThinking = false
-            self.lastResponse = finalResponse
-            self.setExpressionForResponse(finalResponse)
-            self.voiceManager.speak(finalResponse)
+            guard let self = self else { return }
+            Task { @MainActor in // Ensure state updates happen on the main actor
+                self.isThinking = false
+                self.lastResponse = finalResponse
+                self.setExpressionForResponse(finalResponse)
+                self.voiceManager.speak(finalResponse)
+                self.scheduleIdleChatterTimer()
+            }
         })
+    }
+
+    private func scheduleIdleChatterTimer() {
+        idleChatterTimer?.invalidate()
+        idleChatterTimer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            Task { @MainActor in
+                self.maybeSpeakIdleChatter()
+            }
+        }
+    }
+
+    private func maybeSpeakIdleChatter() {
+        guard !isThinking, !isWakingUp, !isManualTalkMode, !voiceManager.isSpeaking else { return }
+
+        idleChatterTimer?.invalidate()
+
+        let line = idleLines.randomElement() ?? "Bloop!"
+        penguinExpression = .happy
+        lastResponse = line
+        voiceManager.speak(line)
     }
 
     private func setExpressionForResponse(_ response: String) {
